@@ -48,16 +48,18 @@ object List {
     case Cons(h, t) => Cons(h, append(t, a2))
   }
 
-  def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B = as match {
-    case Nil => z
-    case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+  def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B = {
+    println("foldRight...")
+    as match {
+      case Nil => z
+      case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+    }
   }
 
   def sum2(ns: List[Int]) =
     foldRight(ns, 0)((x, y) => x + y)
 
   def product2(ns: List[Double]) = foldRight(ns, 1.0)(_ * _)
-
 
 }
 
@@ -97,4 +99,13 @@ object ListType extends App {
 
   val ap = append(List(1,2,3), List(4,5,6))
   println(s"ap : $ap")
+
+  val prd = product2(List(1.0, 2.2, 0.0, 4.0))
+
+  val exm38 = foldRight(List(1,2,3), List(4,5))(Cons(_,_))
+  println(exm38)
+
+  val exm381 = Cons(3, List(4,5))
+  println(exm381)
+
 }
